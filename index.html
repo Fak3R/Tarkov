@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta API Tarkov</title>
+    <title>Consulta Tarkov</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #111; /* Fondo gris oscuro */
+            background-color: #111; /* Fondo */
         }
       #itemName {
           background-color: #333;
@@ -33,30 +33,26 @@
             border: 1px solid #ccc;
             padding: 8px;
             margin-bottom: 10px;
-            background-color: gray; /* Fondo blanco para resaltar los elementos */
+            background-color: gray; /* Fondo */
         }
 
         .result-item img {
             max-width: 20%;
             height: auto;
-            max-height: 50px; /* Ajusta el tamaño máximo de la altura según tus preferencias */
+            max-height: 50px; 
         }
     </style>
 </head>
 
 <body>
     <input type="text" id="itemName" placeholder="" oninput="performSearch()">
-
     <div id="result"></div>
 
     <script>
         let searchTimeout;
-
         function performSearch() {
-            // Limpiar el temporizador de búsqueda anterior si existe
             clearTimeout(searchTimeout);
-
-            // Establecer un temporizador para retrasar la búsqueda hasta que el usuario deje de escribir por un breve momento
+            // usuario deja de escribir
             searchTimeout = setTimeout(() => {
                 fetchData();
             }, 300);
@@ -98,18 +94,15 @@
 
         function displayResults(items) {
             const resultContainer = document.getElementById('result');
-
-            // Limpiar el contenedor antes de mostrar nuevos resultados
             resultContainer.innerHTML = '';
 
             if (items.length > 0) {
-                // Mostrar cada resultado como un elemento separado
                 items.forEach((item, index) => {
                     const itemHtml = `
                     <div class="result-item">
-                      <p><strong>Nombre:</strong> ${item.name}</p>
-                      <p><strong></strong> ${item.shortName}</p>
-                      <p><strong>$</strong> ${item.avg24hPrice}</p>
+                      <p> ${item.name}</p>
+                      <p> ${item.shortName}</p>
+                      <p> ${item.avg24hPrice}</p>
                       <img src="${item.gridImageLink}" alt="Imagen del item">
                     </div>
                   `;
