@@ -51,12 +51,19 @@
     <script>
         let searchTimeout;
         function performSearch() {
-            clearTimeout(searchTimeout);
-            // usuario deja de escribir
-            searchTimeout = setTimeout(() => {
-                fetchData();
-            }, 300);
+            const itemNameInput = document.getElementById('itemName');
+            const itemName = itemNameInput.value.trim();
+
+            // Verificar si la longitud del texto es de al menos 3 caracteres
+            if (itemName.length >= 3) {
+                clearTimeout(searchTimeout);
+                // Usuario deja de escribir
+                searchTimeout = setTimeout(() => {
+                    fetchData();
+                }, 300);
+            }
         }
+
 
         function fetchData() {
             const itemName = document.getElementById('itemName').value;
