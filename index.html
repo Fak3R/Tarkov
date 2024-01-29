@@ -29,9 +29,14 @@
         }
 
         .result-item-text {
-            flex: 1; /* El texto ocupa el espacio restante */
+            flex: 1; 
+            
         }
-
+ .result-item-ven {
+           flex: 1; 
+           font-size: 13px;  
+           margin-left: 10px; 
+        }
         .result-item img {
            
             height: auto;
@@ -114,11 +119,11 @@
                     const itemHtml = `
                     <div class="result-item">
                       <div class="result-item-text">
-                        <strong>${item.name}</strong></br>
-                        ${item.shortName}</br>
-                        ${item.sellFor.map(sellInfo => `
+                        <strong>${item.name}</strong> [
+                        ${item.shortName} ]</br>
+                        <div class="result-item-ven">${item.sellFor.map(sellInfo => `
                           ${sellInfo.price} ${sellInfo.currency} - ${sellInfo.source}
-                        `).join('</br>')}</br>
+                        `).join('</br>')}</br></div>
                       </div>
                       <img src="${item.gridImageLink}" alt="Imagen del item">
                     </div>
