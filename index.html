@@ -23,7 +23,7 @@
         .result-item {
             border: 1px solid #ccc;
             padding: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
             background-color: gray; /* Fondo */
         }
 
@@ -98,10 +98,10 @@
                 items.forEach((item, index) => {
                     const itemHtml = `
                     <div class="result-item">
-                      <p> ${item.name}</p>
-                      <p> ${item.shortName}</p>
-                      <p>₽ ${item.avg24hPrice}</p>
-                      <img src="${item.gridImageLink}" alt="Imagen del item">
+                      <p> ${item.name}</br>
+                      ${item.shortName}</br>
+                      ₽ ${item.avg24hPrice}</br>
+                      <img src="${item.gridImageLink}" alt="Imagen del item"></p>
                     </div>
                   `;
                     resultContainer.innerHTML += itemHtml;
