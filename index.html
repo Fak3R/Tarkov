@@ -21,16 +21,25 @@
         }
 
         .result-item {
+            display: flex; /* Utilizar flexbox para organizar elementos */
             border: 1px solid #ccc;
             padding: 8px;
             margin-bottom: 4px;
             background-color: gray; /* Fondo */
         }
 
+        .result-item-text {
+            flex: 1; /* El texto ocupa el espacio restante */
+        }
+
         .result-item img {
-            max-width: 10%;
+           
             height: auto;
-            max-height: 10%;
+            max-height: 100px;
+            min-height: 80px;
+            margin-right: 40px;
+            margin-left: 10px; 
+            align-self: center; /* Centrar la imagen verticalmente */
         }
     </style>
 </head>
@@ -74,11 +83,11 @@
                       avg24hPrice
                       gridImageLink
                       sellFor {
-    		  price
-    		  currency
-    		  priceRUB
-    		  source
-    		}
+                        price
+                        currency
+                        priceRUB
+                        source
+                      }
                     }
                   }
                 `,
@@ -104,11 +113,13 @@
                 items.forEach((item, index) => {
                     const itemHtml = `
                     <div class="result-item">
-                      <strong> ${item.name} </strong></br>
-                      ${item.shortName}</br>
-                      ${item.sellFor.map(sellInfo => `
-  ${sellInfo.price} ${sellInfo.currency} - ${sellInfo.source}
-`).join('</br>')}</br>
+                      <div class="result-item-text">
+                        <strong>${item.name}</strong></br>
+                        ${item.shortName}</br>
+                        ${item.sellFor.map(sellInfo => `
+                          ${sellInfo.price} ${sellInfo.currency} - ${sellInfo.source}
+                        `).join('</br>')}</br>
+                      </div>
                       <img src="${item.gridImageLink}" alt="Imagen del item">
                     </div>
                   `;
