@@ -98,10 +98,10 @@
                 items.forEach((item, index) => {
                     const itemHtml = `
                     <div class="result-item">
-                      <p> ${item.name}</br>
+                      <strong> ${item.name} </strong></br>
                       ${item.shortName}</br>
                       ₽ ${item.avg24hPrice}</br>
-                      <img src="${item.gridImageLink}" alt="Imagen del item"></p>
+                      <img src="${item.gridImageLink}" alt="Imagen del item">
                     </div>
                   `;
                     resultContainer.innerHTML += itemHtml;
