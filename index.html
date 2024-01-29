@@ -28,9 +28,9 @@
         }
 
         .result-item img {
-            max-width: 20%;
+            max-width: 10%;
             height: auto;
-            max-height: 50px;
+            max-height: 10%;
         }
     </style>
 </head>
@@ -73,6 +73,12 @@
                       shortName
                       avg24hPrice
                       gridImageLink
+                      sellFor {
+    		  price
+    		  currency
+    		  priceRUB
+    		  source
+    		}
                     }
                   }
                 `,
@@ -100,7 +106,9 @@
                     <div class="result-item">
                       <strong> ${item.name} </strong></br>
                       ${item.shortName}</br>
-                      ₽ ${item.avg24hPrice}</br>
+                      ${item.sellFor.map(sellInfo => `
+  ${sellInfo.price} ${sellInfo.currency} - ${sellInfo.source}
+`).join('</br>')}</br>
                       <img src="${item.gridImageLink}" alt="Imagen del item">
                     </div>
                   `;
