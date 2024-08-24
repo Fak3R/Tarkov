@@ -61,12 +61,12 @@
             const itemName = itemNameInput.value.trim();
 
             // Verificar si la longitud del texto es de al menos 3 caracteres
-            if (itemName.length >= 3) {
+            if (itemName.length >= 2) {
                 clearTimeout(searchTimeout);
                 // Usuario deja de escribir
                 searchTimeout = setTimeout(() => {
                     fetchData();
-                }, 300);
+                }, 150);
             }
         }
 
