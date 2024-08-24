@@ -82,22 +82,18 @@
                 body: JSON.stringify({
                     query: `
                   {
-                    items(name: "${itemName}") {
-                    name
-                    avg24hPrice
-                    image512pxLink
-                    sellFor {
-                      currency
-                      currencyItem {
-                        avg24hPrice
-                        traderPrices {
-                          priceRUB
-                          trader {
-                            name
-                          }
-                        }
-                      }
-                    }
+                  items(name: "${itemName}") {
+                     name
+    avg24hPrice
+    image512pxLink
+    traderPrices {
+      priceRUB
+      trader {
+        name
+      }
+    }
+    wikiLink
+  }
                     }
                   }
                 `,
