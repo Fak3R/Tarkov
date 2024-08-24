@@ -83,16 +83,21 @@
                     query: `
                   {
                     items(name: "${itemName}") {
-                      name
-                      shortName
-                      avg24hPrice
-                      gridImageLink
-                      sellFor {
-                        price
-                        currency
-                        priceRUB
-                        source
+                    name
+                    avg24hPrice
+                    image512pxLink
+                    sellFor {
+                      currency
+                      currencyItem {
+                        avg24hPrice
+                        traderPrices {
+                          priceRUB
+                          trader {
+                            name
+                          }
+                        }
                       }
+                    }
                     }
                   }
                 `,
