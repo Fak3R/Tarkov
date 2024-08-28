@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,12 @@
 
         #itemName {
             background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         #result {
@@ -21,36 +27,37 @@
         }
 
         .result-item {
-            display: flex; /* Utilizar flexbox para organizar elementos */
-            border: 1px solid #ccc;
+            position: relative; /* Posición relativa para el contenedor */
+            background-color: gray; /* Fondo */
             padding: 8px;
             margin-bottom: 4px;
-            background-color: gray; /* Fondo */
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
         }
 
         .result-item-text {
-            flex: 1; 
-            
+            flex: 1;
+            color: white; /* Color del texto */
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+            padding: 5px;
+            border-radius: 5px;
+            z-index: 1; /* Asegura que el texto esté por encima de la imagen */
         }
- .result-item-ven {
-           flex: 1; 
-           font-size: 13px;  
-           margin-left: 10px; 
-        }
+
         .result-item img {
-           
-            height: auto;
+            margin-left: 10px; /* Espacio entre el texto y la imagen */
             max-height: 100px;
             min-height: 80px;
-            margin-right: 40px;
-            margin-left: 10px; 
-            align-self: center; /* Centrar la imagen verticalmente */
+            width: auto; /* Ancho automático */
+            height: auto; /* Altura automática */
+            z-index: 0; /* Asegura que la imagen esté detrás del texto */
         }
     </style>
 </head>
 
 <body>
-    <input type="text" id="itemName" placeholder="" oninput="performSearch()">
+    <input type="text" id="itemName" placeholder="Introduce el nombre del item" oninput="performSearch()">
     <div id="result"></div>
 
     <script>
@@ -60,7 +67,7 @@
             const itemNameInput = document.getElementById('itemName');
             const itemName = itemNameInput.value.trim();
 
-            // Verificar si la longitud del texto es de al menos 3 caracteres
+            // Verificar si la longitud del texto es de al menos 2 caracteres
             if (itemName.length >= 2) {
                 clearTimeout(searchTimeout);
                 // Usuario deja de escribir
@@ -81,34 +88,32 @@
                 },
                 body: JSON.stringify({
                     query: `
-                  {
-                  items(name: "${itemName}") {
-                     name
-    avg24hPrice
-    image512pxLink
-    traderPrices {
-      priceRUB
-      trader {
-        name
-      }
-    }
-    wikiLink
-  }
+                    {
+                        items(name: "${itemName}") {
+                            id
+                            name
+                            avg24hPrice
+                            image512pxLink
+                            traderPrices {
+                                priceRUB
+                                trader {
+                                    name
+                                }
+                            }
+                            wikiLink
+                        }
                     }
-                  }
-                `,
+                    `,
                 }),
             })
-                .then(response => response.json())
-                .then(data => {
-                    displayResults(data.data.items);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    displayResults([{
-                        error: 'Error al obtener los datos.'
-                    }]);
-                });
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data.data.items);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                displayResults([{ error: 'Error al obtener los datos.' }]);
+            });
         }
 
         function displayResults(items) {
@@ -116,19 +121,19 @@
             resultContainer.innerHTML = '';
 
             if (items.length > 0) {
-                items.forEach((item, index) => {
+                items.forEach(item => {
+                    const highestPrice = item.traderPrices.reduce((max, priceInfo) => priceInfo.priceRUB > max.priceRUB ? priceInfo : max, item.traderPrices[0]);
                     const itemHtml = `
                     <div class="result-item">
-                      <div class="result-item-text">
-                        <strong>${item.name}</strong> [
-                        ${item.shortName} ]</br>
-                        <div class="result-item-ven">${item.sellFor.map(sellInfo => `
-                          ${sellInfo.price} ${sellInfo.currency} - ${sellInfo.source}
-                        `).join('</br>')}</br></div>
-                      </div>
-                      <img src="${item.gridImageLink}" alt="Imagen del item">
+                        <div class="result-item-text">
+                            <strong>${item.name}</strong><br>
+                            Flea 24h: ${item.avg24hPrice} RUB<br>
+                            ${highestPrice.trader.name}: ${highestPrice.priceRUB} RUB <br>
+                            <a href="${item.wikiLink}" target="_blank">Wiki</a>
+                        </div>
+                        <img src="${item.image512pxLink}" alt="Imagen del item">
                     </div>
-                  `;
+                    `;
                     resultContainer.innerHTML += itemHtml;
                 });
             } else {
