@@ -27,32 +27,36 @@
         }
 
         .result-item {
-            position: relative; /* Posición relativa para el contenedor */
-            background-color: gray; /* Fondo */
-            padding: 8px;
-            margin-bottom: 4px;
-            border: 1px solid #ccc;
-            display: flex;
-            align-items: center;
-        }
+    position: relative; /* Posición relativa para el contenedor */
+    background-color: gray; /* Fondo */
+    padding: 8px;
+    height: 100px;
+    height: 80px;
+    margin-bottom: 4px;
+    border: 1px solid #ccc;
+}
 
-        .result-item-text {
-            flex: 1;
-            color: white; /* Color del texto */
-            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-            padding: 5px;
-            border-radius: 5px;
-            z-index: 1; /* Asegura que el texto esté por encima de la imagen */
-        }
+.result-item-text {
+    position: absolute; /* Posición absoluta para el texto */
+    top: 10px;
+    left: 10px;
+    color: white; /* Color del texto */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 1; /* Asegura que el texto esté por encima de la imagen */
+}
 
-        .result-item img {
-            margin-left: 10px; /* Espacio entre el texto y la imagen */
-            max-height: 100px;
-            min-height: 80px;
-            width: auto; /* Ancho automático */
-            height: auto; /* Altura automática */
-            z-index: 0; /* Asegura que la imagen esté detrás del texto */
-        }
+.result-item img {
+    position: absolute; /* Posición absoluta para la imagen */
+    top: 0;
+    right: 0;
+    max-height: 100px;
+    min-height: 80px;
+    width: auto; /* Ancho automático */
+    height: auto; /* Altura automática */
+    z-index: 0; /* Asegura que la imagen esté detrás del texto */
+}
     </style>
 </head>
 
